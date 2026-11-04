@@ -10,7 +10,7 @@
   <a href="mailto:fabriciodr01@gmail.com"><img src="assets/btn-email.svg" height="40" alt="Email" /></a>
 </p>
 
-<img src="assets/section-profile.svg" width="100%" alt="01 / Profile" />
+<img src="assets/section-profile.svg" width="100%" alt="Profile" />
 
 Full stack software engineer working with **Vue 3, React and TypeScript** on the front end and **C# / .NET, Node.js and NestJS** on the back end. I care about interfaces that feel good to use and architecture that keeps them easy to change.
 
@@ -20,14 +20,6 @@ Full stack software engineer working with **Vue 3, React and TypeScript** on the
 
 Open to **full stack, front-end or back-end roles**, remote or with relocation.
 
-<img src="assets/section-stack.svg" width="100%" alt="02 / Loadout" />
+<img src="assets/section-stack.svg" width="100%" alt="Loadout" />
 
 <img src="assets/stack.svg" width="100%" alt="Tech stack. Frontend: Vue 3, React, TypeScript, Quasar, Capacitor, Tailwind CSS, three.js. Backend: C#, .NET / ASP.NET Core, EF Core, Node.js, NestJS, PostgreSQL, REST, GraphQL. Quality and delivery: Jest, Cypress, xUnit, Testcontainers, Docker, GitHub Actions. Games: Unity, GameMaker, Blender." />
-
-<img src="assets/section-projects.svg" width="100%" alt="03 / Featured projects" />
-
-<a href="https://github.com/Fabriciodr01/timeways-api"><img src="assets/project-timeways.svg" width="100%" alt="timeways-api: calendar and event management REST API in ASP.NET Core" /></a>
-<a href="https://github.com/Fabriciodr01/FrontLine"><img src="assets/project-frontline.svg" width="100%" alt="FrontLine: turn-based multiplayer tactics game in Unity" /></a>
-<a href="https://github.com/Fabriciodr01/portifolio"><img src="assets/project-portfolio.svg" width="100%" alt="Portfolio: HUD-style personal site in React and three.js" /></a>
-
-<img src="assets/ship-banner.gif" width="100%" alt="Rotating orange wireframe spaceship over orbit rings and stars" />

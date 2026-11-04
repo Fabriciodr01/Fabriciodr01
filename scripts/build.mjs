@@ -99,12 +99,11 @@ function header() {
 
 // ---------------------------------------------------------------- section titles
 
-function section(n, title) {
+function section(title) {
   const h = 40
-  const label = `${String(n).padStart(2, '0')} / ${title}`
-  const tx = 18 + label.length * 15 * MONO + 18
+  const tx = 18 + title.length * 15 * MONO + 18
   const body = `<rect x="0" y="12" width="8" height="16" fill="${C.ed}"/>
-<text x="18" y="26" class="m" font-size="15" letter-spacing="0" fill="${C.ed}">${esc(label)}</text>
+<text x="18" y="26" class="m" font-size="15" letter-spacing="0" fill="${C.ed}">${esc(title)}</text>
 <line x1="${tx}" y1="20" x2="${W - 40}" y2="20" stroke="${C.ed}" stroke-opacity="0.35"/>
 <path d="M${W - 30} 14l6 6-6 6M${W - 18} 14l6 6-6 6" fill="none" stroke="${C.ed}" stroke-opacity="0.6"/>`
   return svg(W, h, body, title)
@@ -148,69 +147,15 @@ ${rows}`
   return svg(W, h, body, 'Tech stack: ' + STACK.map(([g, i]) => `${g}: ${i.join(', ')}`).join('. '))
 }
 
-// ---------------------------------------------------------------- project cards
-
-const PROJECTS = [
-  {
-    file: 'project-timeways',
-    tag: 'C# · REST API',
-    title: 'TIMEWAYS-API',
-    lines: [
-      'Calendar and event management API in ASP.NET Core / .NET 10 with a layered',
-      'architecture, JWT auth, EF Core on PostgreSQL and xUnit + Testcontainers tests.',
-    ],
-    stack: ['ASP.NET Core', 'EF Core', 'PostgreSQL', 'JWT', 'Docker', 'GitHub Actions'],
-  },
-  {
-    file: 'project-frontline',
-    tag: 'C# · UNITY 6',
-    title: 'FRONTLINE',
-    lines: [
-      'Turn-based multiplayer tactics game built as a study of design patterns: commands',
-      'for every action, an explicit state machine and behavior-tree enemy AI.',
-    ],
-    stack: ['Unity 6', 'C#', 'Command', 'State machine', 'Behavior tree'],
-  },
-  {
-    file: 'project-portfolio',
-    tag: 'TYPESCRIPT · REACT',
-    title: 'PORTFOLIO',
-    lines: [
-      'Elite Dangerous inspired HUD site with a react-three-fiber ship hologram,',
-      'a custom scanline shader and full prefers-reduced-motion support.',
-    ],
-    stack: ['React', 'TypeScript', 'three.js', 'Tailwind CSS', 'Vite'],
-  },
-]
-
-function project(p, i) {
-  const h = 186
-  const body = `<defs>${grid('g')}
-<linearGradient id="fade" x1="0" x2="1"><stop offset="0" stop-color="${C.ed}" stop-opacity="0.10"/><stop offset="0.5" stop-color="${C.ed}" stop-opacity="0"/></linearGradient></defs>
-${frame(1, 1, W - 2, h - 2, 20, C.ed, 0.7)}
-<rect x="1" y="1" width="${W - 2}" height="${h - 2}" fill="url(#g)"/>
-<rect x="1" y="1" width="${W - 2}" height="${h - 2}" fill="url(#fade)"/>
-<text x="34" y="62" class="d" font-size="46" fill="${C.ed}" fill-opacity="0.35">${String(i + 1).padStart(2, '0')}</text>
-<text x="96" y="40" class="m" font-size="12" letter-spacing="2" fill="${C.muted}">${esc(p.tag)}</text>
-<text x="96" y="82" class="d" font-size="36" fill="${C.bone}">${esc(p.title)}</text>
-${p.lines.map((l, j) => `<text x="96" y="${110 + j * 20}" class="m" font-size="13.5" fill="${C.ink}">${esc(l)}</text>`).join('\n')}
-${chipRow(96, 144, p.stack)}
-<text x="${W - 50}" y="40" text-anchor="end" class="m" font-size="12" letter-spacing="2" fill="${C.ed}">VIEW REPO</text>
-<path d="M${W - 30} 40l8-8M${W - 28} 32h6v6" transform="translate(-4 -2)" fill="none" stroke="${C.ed}" stroke-width="1.5"/>`
-  return svg(W, h, body, `${p.title}: ${p.lines.join(' ')}`)
-}
-
 // ---------------------------------------------------------------- write
 
 mkdirSync(root + 'assets', { recursive: true })
 const out = (name, s) => writeFileSync(`${root}assets/${name}.svg`, s)
 
 out('header', header())
-out('section-profile', section(1, 'PROFILE'))
-out('section-stack', section(2, 'LOADOUT'))
-out('section-projects', section(3, 'FEATURED PROJECTS'))
+out('section-profile', section('PROFILE'))
+out('section-stack', section('LOADOUT'))
 out('stack', stack())
-PROJECTS.forEach((p, i) => out(p.file, project(p, i)))
 for (const [name, label] of [
   ['btn-portfolio', 'PORTFOLIO'],
   ['btn-linkedin', 'LINKEDIN'],
