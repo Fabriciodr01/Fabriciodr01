@@ -160,7 +160,6 @@ mkdirSync(root + 'assets', { recursive: true })
 const out = (name, s) => writeFileSync(`${root}assets/${name}.svg`, s)
 
 out('header', header())
-out('section-profile', section('PROFILE'))
 out('section-stack', section('LOADOUT'))
 out('stack', stack())
 for (const [name, label] of [
