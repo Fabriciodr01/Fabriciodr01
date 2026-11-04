@@ -1,5 +1,5 @@
 // Generates the SVG panels used by README.md. Run with `node scripts/build.mjs` after editing the data below.
-// Fonts and the portrait are embedded as data URIs because GitHub renders README SVGs as <img>,
+// Fonts are embedded as data URIs because GitHub renders README SVGs as <img>,
 // which cannot load external resources.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -69,32 +69,39 @@ const W = 860
 // ---------------------------------------------------------------- header
 
 function header() {
-  const h = 300
-  const portrait = `data:image/webp;base64,${b64('assets/profile.webp')}`
+  const h = 250
+  const edge = `M24 4H${W - 4}V${h - 24}L${W - 28} ${h - 4}H4V28Z`
+  const cx = 690
+  const cy = h / 2
+  const ticks = [0, 90, 180, 270]
+    .map((d) => `<line x1="${cx}" y1="${cy - 112}" x2="${cx}" y2="${cy - 96}" transform="rotate(${d} ${cx} ${cy})"/>`)
+    .join('')
   const body = `<defs>${grid('g')}
-<radialGradient id="glow" cx="0.78" cy="0.45" r="0.45"><stop offset="0" stop-color="${C.ed}" stop-opacity="0.35"/><stop offset="1" stop-color="${C.ed}" stop-opacity="0"/></radialGradient>
-<clipPath id="clip"><path d="M24 4H856V276L832 296H4V28Z"/></clipPath></defs>
+<radialGradient id="glow" cx="0.8" cy="0.5" r="0.45"><stop offset="0" stop-color="${C.ed}" stop-opacity="0.3"/><stop offset="1" stop-color="${C.ed}" stop-opacity="0"/></radialGradient>
+<clipPath id="clip"><path d="${edge}"/></clipPath></defs>
 <rect width="${W}" height="${h}" fill="${C.void}"/>
 <g clip-path="url(#clip)">
 <rect width="${W}" height="${h}" fill="${C.panel}"/>
 <rect width="${W}" height="${h}" fill="url(#g)"/>
 <rect width="${W}" height="${h}" fill="url(#glow)"/>
-<circle cx="680" cy="150" r="128" fill="none" stroke="${C.ed}" stroke-opacity="0.35" stroke-dasharray="2 5"/>
-<image href="${portrait}" x="566" y="30" width="228" height="301" preserveAspectRatio="xMidYMin meet"/>
 </g>
-<path d="M24 4H856V276L832 296H4V28Z" fill="none" stroke="${C.ed}" stroke-width="1.5"/>
-<line x1="44" y1="56" x2="80" y2="56" stroke="${C.ed}" stroke-width="1.5"/>
-<text x="92" y="61" class="m" font-size="13" letter-spacing="2.6" fill="${C.ed}">TRANSMISSION_000 / GITHUB</text>
-<text x="42" y="130" class="d" font-size="68" fill="${C.bone}">FABRICIO</text>
-<text x="42" y="196" class="d" font-size="68" fill="${C.ed}">DIAS DA ROSA</text>
-<text x="44" y="232" class="m" font-size="17" letter-spacing="2.4" fill="${C.amber}">SOFTWARE ENGINEER · FULL STACK</text>
-<line x1="44" y1="248" x2="420" y2="248" stroke="${C.ed}" stroke-opacity="0.35"/>
-<text x="44" y="272" class="m" font-size="12.5" letter-spacing="1.8" fill="${C.muted}">SÃO LEOPOLDO, BRAZIL // OPEN TO REMOTE</text>
+<g fill="none" stroke="${C.ed}">
+<circle cx="${cx}" cy="${cy}" r="100" stroke-opacity="0.35" stroke-dasharray="2 5"/>
+<circle cx="${cx}" cy="${cy}" r="62" stroke-opacity="0.2"/>
+<circle cx="${cx}" cy="${cy}" r="3" fill="${C.ed}" fill-opacity="0.6" stroke="none"/>
+<g stroke-opacity="0.5">${ticks}</g>
+</g>
+<path d="${edge}" fill="none" stroke="${C.ed}" stroke-width="1.5"/>
+<text x="42" y="98" class="d" font-size="68" fill="${C.bone}">FABRICIO</text>
+<text x="42" y="164" class="d" font-size="68" fill="${C.ed}">DIAS DA ROSA</text>
+<text x="44" y="200" class="m" font-size="17" letter-spacing="2.4" fill="${C.amber}">SOFTWARE ENGINEER · FULL STACK</text>
+<line x1="44" y1="214" x2="420" y2="214" stroke="${C.ed}" stroke-opacity="0.35"/>
+<text x="44" y="234" class="m" font-size="12.5" letter-spacing="1.8" fill="${C.muted}">SÃO LEOPOLDO, BRAZIL</text>
 <g class="m" font-size="11" letter-spacing="1.5" fill="${C.ed}">
 <text x="836" y="34" text-anchor="end">● ONLINE</text>
-<text x="836" y="270" text-anchor="end" fill="${C.dim}">SYS.ID FDR-01</text>
+<text x="836" y="${h - 30}" text-anchor="end" fill="${C.dim}">SYS.ID FDR-01</text>
 </g>`
-  return svg(W, h, body, 'Fabricio Dias da Rosa, Software Engineer, Full Stack. São Leopoldo, Brazil, open to remote.')
+  return svg(W, h, body, 'Fabricio Dias da Rosa, Software Engineer, Full Stack. São Leopoldo, Brazil.')
 }
 
 // ---------------------------------------------------------------- section titles

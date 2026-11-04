@@ -1,6 +1,6 @@
 <p>
 <a href="https://fabriciodr01.github.io/portifolio/">
-  <img src="assets/header.svg" width="100%" alt="Fabricio Dias da Rosa, Software Engineer, Full Stack. São Leopoldo, Brazil, open to remote." />
+  <img src="assets/header.svg" width="100%" alt="Fabricio Dias da Rosa, Software Engineer, Full Stack. São Leopoldo, Brazil." />
 </a>
 </p>
 
