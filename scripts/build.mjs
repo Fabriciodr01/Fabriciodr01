@@ -104,6 +104,59 @@ function header() {
   return svg(W, h, body, 'Fabricio Dias da Rosa, Software Engineer, Full Stack. São Leopoldo, Brazil.')
 }
 
+// ---------------------------------------------------------------- linkedin cover
+
+// LinkedIn crops covers to 1584x396 and lays the profile photo over the lower-left corner,
+// so the text sits right-aligned and the left side only carries the reticle.
+function cover() {
+  const w = 1584
+  const h = 396
+  const edge = `M40 6H${w - 6}V${h - 40}L${w - 40} ${h - 6}H6V40Z`
+  const cx = 330
+  const cy = 170
+  const ticks = [0, 90, 180, 270]
+    .map((d) => `<line x1="${cx}" y1="${cy - 150}" x2="${cx}" y2="${cy - 128}" transform="rotate(${d} ${cx} ${cy})"/>`)
+    .join('')
+  const right = w - 72
+  const contact = 24
+  // Icons sit left of right-aligned text, so they are offset by the text's monospace width.
+  const iconX = (label) => right - label.length * contact * MONO - 40
+  const site = 'fabriciodr01.github.io/portifolio'
+  const mail = 'fabriciodr01@gmail.com'
+  const gx = iconX(site)
+  const mx = iconX(mail)
+  const body = `<defs>
+<pattern id="g" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="${C.ed}" stroke-opacity="0.07"/></pattern>
+<radialGradient id="glow" cx="0.2" cy="0.45" r="0.4"><stop offset="0" stop-color="${C.ed}" stop-opacity="0.32"/><stop offset="1" stop-color="${C.ed}" stop-opacity="0"/></radialGradient>
+<clipPath id="clip"><path d="${edge}"/></clipPath></defs>
+<rect width="${w}" height="${h}" fill="${C.void}"/>
+<g clip-path="url(#clip)">
+<rect width="${w}" height="${h}" fill="${C.panel}"/>
+<rect width="${w}" height="${h}" fill="url(#g)"/>
+<rect width="${w}" height="${h}" fill="url(#glow)"/>
+</g>
+<g fill="none" stroke="${C.ed}">
+<circle cx="${cx}" cy="${cy}" r="134" stroke-opacity="0.35" stroke-dasharray="3 7"/>
+<circle cx="${cx}" cy="${cy}" r="84" stroke-opacity="0.2"/>
+<circle cx="${cx}" cy="${cy}" r="4" fill="${C.ed}" fill-opacity="0.6" stroke="none"/>
+<g stroke-opacity="0.5" stroke-width="1.5">${ticks}</g>
+</g>
+<path d="${edge}" fill="none" stroke="${C.ed}" stroke-width="2.5"/>
+<text x="${right}" y="152" text-anchor="end" class="d" font-size="104"><tspan fill="${C.bone}">SOFTWARE</tspan> <tspan fill="${C.ed}">ENGINEER</tspan></text>
+<text x="${right}" y="200" text-anchor="end" class="m" font-size="24" letter-spacing="3" fill="${C.amber}">VUE · REACT · TYPESCRIPT · C# / .NET</text>
+<line x1="${right - 640}" y1="228" x2="${right}" y2="228" stroke="${C.ed}" stroke-opacity="0.35" stroke-width="1.5"/>
+<g class="m" font-size="${contact}" fill="${C.bone}" text-anchor="end">
+<text x="${right}" y="276">${site}</text>
+<text x="${right}" y="318">${mail}</text>
+</g>
+<g fill="none" stroke="${C.ed}" stroke-width="2">
+<circle cx="${gx + 12}" cy="268" r="11"/><ellipse cx="${gx + 12}" cy="268" rx="5" ry="11"/><line x1="${gx + 1}" y1="268" x2="${gx + 23}" y2="268"/>
+<rect x="${mx}" y="301" width="24" height="17"/><path d="M${mx} 301l12 9 12-9"/>
+</g>
+<text x="${right}" y="${h - 44}" text-anchor="end" class="m" font-size="16" letter-spacing="2.4" fill="${C.dim}">SÃO LEOPOLDO, BRAZIL</text>`
+  return svg(w, h, body, `Software Engineer. ${site}, ${mail}`)
+}
+
 // ---------------------------------------------------------------- section titles
 
 function section(title) {
@@ -160,6 +213,8 @@ mkdirSync(root + 'assets', { recursive: true })
 const out = (name, s) => writeFileSync(`${root}assets/${name}.svg`, s)
 
 out('header', header())
+mkdirSync(root + 'linkedin', { recursive: true })
+writeFileSync(`${root}linkedin/cover.svg`, cover())
 out('section-stack', section('LOADOUT'))
 out('stack', stack())
 for (const [name, label] of [
